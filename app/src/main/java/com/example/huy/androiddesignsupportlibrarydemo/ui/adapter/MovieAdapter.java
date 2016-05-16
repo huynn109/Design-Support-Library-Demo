@@ -1,6 +1,5 @@
 package com.example.huy.androiddesignsupportlibrarydemo.ui.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> movieList;
     private int rowLayout;
 
-    public MovieAdapter(List<Movie> movieList, int rowLayout, Context context) {
+    public MovieAdapter(List<Movie> movieList, int rowLayout) {
         this.movieList = movieList;
         this.rowLayout = rowLayout;
     }

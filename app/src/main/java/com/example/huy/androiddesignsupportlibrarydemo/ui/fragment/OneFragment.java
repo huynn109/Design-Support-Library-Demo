@@ -49,8 +49,7 @@ public class OneFragment extends Fragment {
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMovieAdapter = new MovieAdapter(mMovieList,
-                R.layout.list_item_movie,
-                getActivity().getApplicationContext());
+                R.layout.list_item_movie);
         mRecyclerView.setAdapter(mMovieAdapter);
         return mRootView;
     }
