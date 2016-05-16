@@ -47,7 +47,7 @@ public class OneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_one, container, false);
-        ButterKnife.bind(getActivity(), mRootView);
+        ButterKnife.bind(this, mRootView);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_film);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
