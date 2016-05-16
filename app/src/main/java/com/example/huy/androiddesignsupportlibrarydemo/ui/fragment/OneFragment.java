@@ -24,6 +24,8 @@ import com.example.huy.androiddesignsupportlibrarydemo.util.ApiUrl;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,9 +35,10 @@ public class OneFragment extends Fragment {
     private static final String TAG = "OneFragment";
     private boolean isFirstLoadData = false;
     private View mRootView;
-    private RecyclerView mRecyclerView;
     private List<Movie> mMovieList = new ArrayList<>();
     private MovieAdapter mMovieAdapter;
+    @BindView(R.id.recycler_view_film)
+    RecyclerView mRecyclerView;
 
     public OneFragment() {
     }
@@ -44,6 +47,8 @@ public class OneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_one, container, false);
+        ButterKnife.bind(getActivity(), mRootView);
+
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_film);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
