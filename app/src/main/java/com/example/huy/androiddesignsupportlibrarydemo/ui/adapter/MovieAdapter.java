@@ -5,27 +5,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.huy.androiddesignsupportlibrarydemo.data.model.Movie;
 import com.example.huy.androiddesignsupportlibrarydemo.R;
+import com.example.huy.androiddesignsupportlibrarydemo.data.model.Movie;
 
 import java.util.List;
 
-/**
- * Created by Huy on 5/14/2016.
- */
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
     private int rowLayout;
-    private Context context;
 
     public MovieAdapter(List<Movie> movieList, int rowLayout, Context context) {
         this.movieList = movieList;
         this.rowLayout = rowLayout;
-        this.context = context;
     }
 
     @Override
@@ -36,10 +34,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        holder.movieTitle.setText(movieList.get(position).getTitle());
-        holder.data.setText(movieList.get(position).getReleaseDate());
-        holder.movieDescription.setText(movieList.get(position).getOverview());
-        holder.rating.setText(movieList.get(position).getVoteAverage().toString());
+        holder.mTitle.setText(movieList.get(position).getTitle());
+        holder.mSubTitle.setText(movieList.get(position).getReleaseDate());
+        holder.mDescription.setText(movieList.get(position).getOverview());
+        holder.mRating.setText(movieList.get(position).getVoteAverage().toString());
     }
 
     @Override
@@ -48,19 +46,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout moviesLayout;
-        TextView movieTitle;
-        TextView data;
-        TextView movieDescription;
-        TextView rating;
+        @BindView(R.id.title)
+        TextView mTitle;
+        @BindView(R.id.subtitle)
+        TextView mSubTitle;
+        @BindView(R.id.description)
+        TextView mDescription;
+        @BindView(R.id.rating)
+        TextView mRating;
 
-        public MovieViewHolder(View itemView) {
-            super(itemView);
-            moviesLayout = (LinearLayout) itemView.findViewById(R.id.movies_layout);
-            movieTitle = (TextView) itemView.findViewById(R.id.title);
-            data = (TextView) itemView.findViewById(R.id.subtitle);
-            movieDescription = (TextView) itemView.findViewById(R.id.description);
-            rating = (TextView) itemView.findViewById(R.id.rating);
+        public MovieViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
         }
     }
 }
