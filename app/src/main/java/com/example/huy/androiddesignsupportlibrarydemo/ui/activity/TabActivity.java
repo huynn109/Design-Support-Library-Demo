@@ -1,16 +1,12 @@
 package com.example.huy.androiddesignsupportlibrarydemo.ui.activity;
 
-import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +16,13 @@ import com.example.huy.androiddesignsupportlibrarydemo.ui.adapter.TabSectionsPag
 import com.example.huy.androiddesignsupportlibrarydemo.ui.fragment.OneFragment;
 import com.example.huy.androiddesignsupportlibrarydemo.ui.fragment.ThreeFragment;
 import com.example.huy.androiddesignsupportlibrarydemo.ui.fragment.TwoFragment;
+import com.gigamole.library.navigationtabstrip.NavigationTabStrip;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TabActivity extends AppCompatActivity{
+public class TabActivity extends AppCompatActivity {
 
     private TabSectionsPagerAdapter mTabSectionsPagerAdapter;
     private int[] tabIcons = {
@@ -41,44 +38,53 @@ public class TabActivity extends AppCompatActivity{
     @BindView(R.id.fab)
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.tabs)
-    TabLayout mTabLayout;
+    NavigationTabStrip mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
         ButterKnife.bind(this);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mViewPager = (ViewPager) findViewById(R.id.view_paper);
         setupViewPager(mViewPager);
-        mTabLayout.setupWithViewPager(mViewPager);
-        setUpTabIcons();
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(1);
-        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager){
+//        mTabLayout.setupWithViewPager(mViewPager);
+//        setUpTabIcons();
+        mTabLayout.setViewPager(mViewPager, 1);
+//        mViewPager.setCurrentItem(0);
+//        mViewPager.setOffscreenPageLimit(1);
+        mTabLayout.setOnTabStripSelectedIndexListener(new NavigationTabStrip.OnTabStripSelectedIndexListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                super.onTabSelected(tab);
-                int colorTabSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabSelectedIcon);
-                tab.getIcon().setColorFilter(colorTabSelectedIcon, PorterDuff.Mode.SRC_IN);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                super.onTabReselected(tab);
+            public void onStartTabSelected(String title, int index) {
 
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                super.onTabUnselected(tab);
-                int colorTabUnSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabUnSelectedIcon);
-                tab.getIcon().setColorFilter(colorTabUnSelectedIcon, PorterDuff.Mode.SRC_IN);
+            public void onEndTabSelected(String title, int index) {
+
             }
         });
+//        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                super.onTabSelected(tab);
+//                int colorTabSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabSelectedIcon);
+//                tab.getIcon().setColorFilter(colorTabSelectedIcon, PorterDuff.Mode.SRC_IN);
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                super.onTabReselected(tab);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//                super.onTabUnselected(tab);
+//                int colorTabUnSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabUnSelectedIcon);
+//                tab.getIcon().setColorFilter(colorTabUnSelectedIcon, PorterDuff.Mode.SRC_IN);
+//            }
+//        });
     }
 
     @Override
@@ -116,16 +122,16 @@ public class TabActivity extends AppCompatActivity{
         mViewPager.setAdapter(mTabSectionsPagerAdapter);
     }
 
-    private void setUpTabIcons() {
-        int colorTabSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabSelectedIcon);
-        int colorTabUnSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabUnSelectedIcon);
-        for (int i = 0; i < mTabSectionsPagerAdapter.getCount(); i++) {
-            mTabLayout.getTabAt(i).setIcon(tabIcons[i]);
-            if (i == 0) {
-                mTabLayout.getTabAt(i).getIcon().setColorFilter(colorTabSelectedIcon, PorterDuff.Mode.SRC_IN);
-                continue;
-            }
-            mTabLayout.getTabAt(i).getIcon().setColorFilter(colorTabUnSelectedIcon, PorterDuff.Mode.SRC_IN);
-        }
-    }
+//    private void setUpTabIcons() {
+//        int colorTabSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabSelectedIcon);
+//        int colorTabUnSelectedIcon = ContextCompat.getColor(getApplicationContext(), R.color.colorTabUnSelectedIcon);
+//        for (int i = 0; i < mTabSectionsPagerAdapter.getCount(); i++) {
+//            mTabLayout.getTabAt(i).setIcon(tabIcons[i]);
+//            if (i == 0) {
+//                mTabLayout.getTabAt(i).getIcon().setColorFilter(colorTabSelectedIcon, PorterDuff.Mode.SRC_IN);
+//                continue;
+//            }
+//            mTabLayout.getTabAt(i).getIcon().setColorFilter(colorTabUnSelectedIcon, PorterDuff.Mode.SRC_IN);
+//        }
+//    }
 }

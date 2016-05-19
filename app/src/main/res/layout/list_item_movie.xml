@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/movies_layout"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.Card.Margins"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:minHeight="72dp"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_poster"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:paddingRight="16dp"
+            android:layout_toRightOf="@+id/image_poster"
+            android:paddingRight="@dimen/margin_large"
+            android:paddingTop="@dimen/margin_large"
             android:textSize="16sp"
             android:textStyle="bold" />
-
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="16dp"
-            />
+            android:layout_below="@+id/title"
+            android:layout_toRightOf="@+id/image_poster"
+            android:paddingRight="@dimen/margin_large" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/subtitle"
+            android:layout_toRightOf="@+id/image_poster"
             android:maxLines="3"
-            android:paddingRight="16dp"
-             />
+            android:paddingBottom="@dimen/margin_large"
+            android:paddingRight="@dimen/margin_large" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/rating_image"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/star"
-            android:tint="@color/colorAccent" />
-
-
-        <TextView
-            android:id="@+id/rating"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="5.0" />
-    </LinearLayout>
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="@dimen/margin_normal">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/rating_image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/star"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="5.0" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

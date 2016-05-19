@@ -48,8 +48,9 @@ public class OneFragment extends Fragment {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mMovieAdapter = new MovieAdapter(mMovieList,
+        mMovieAdapter = new MovieAdapter(getContext(), mMovieList,
                 R.layout.list_item_movie);
+        mRecyclerView.setAdapter(mMovieAdapter);
         mRecyclerView.setAdapter(mMovieAdapter);
         return mRootView;
     }
@@ -66,6 +67,12 @@ public class OneFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (!isFirstLoadData) hideProcessBarFirstLoad();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 
     private void firstLoadData() {
@@ -91,7 +98,6 @@ public class OneFragment extends Fragment {
             public void onFailure(Call<MovieResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
             }
-
         });
     }
 

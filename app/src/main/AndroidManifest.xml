@@ -20,11 +20,16 @@
         <activity
             android:name=".ui.activity.CoordinatorLayoutActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.Demo"/>
+            android:theme="@style/AppTheme.Demo" />
         <activity
             android:name=".ui.activity.TabActivity"
             android:label="@string/title_activity_tab"
-            android:theme="@style/AppTheme.Demo.NotStransparent"/>
+            android:theme="@style/AppTheme.Demo.NotStransparent" />
+        <activity
+            android:name=".ui.activity.TabStripActivity"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/AppTheme.Demo.NotStransparent" />
+
     </application>
 
 </manifest>

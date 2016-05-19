@@ -5,21 +5,21 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.transition.Fade;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.huy.androiddesignsupportlibrarydemo.R;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity
     private Intent mIntent;
 
     @BindView(R.id.image_button_appbar)
-    ImageButton mButtonAppbar;
+    Button mButtonAppbar;
+    @BindView(R.id.button_tap_strip)
+    Button mButtonTapStrip;
     @BindView(R.id.fab)
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.toolbar)
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +70,40 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.menu_night_mode_system:
+                setDayNightTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+            case R.id.menu_night_mode_day:
+                setDayNightTheme(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case R.id.menu_night_mode_night:
+                setDayNightTheme(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case R.id.menu_night_mode_auto:
+                setDayNightTheme(AppCompatDelegate.MODE_NIGHT_AUTO);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        switch (AppCompatDelegate.getDefaultNightMode()) {
+            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
+                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_AUTO:
+                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
+                break;
+        }
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -135,6 +168,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @OnClick(R.id.button_tap_strip)
+    void onClickButtonTapStrip() {
+        mIntent = new Intent(MainActivity.this, TabStripActivity.class);
+        ActivityOptions transitionActivityOptions = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View shareView = mButtonTapStrip;
+            String transitionName = getString(R.string.title_activity_tab);
+            transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this
+                    , shareView
+                    , transitionName);
+            startActivity(mIntent, transitionActivityOptions.toBundle());
+        } else {
+            startActivity(mIntent);
+        }
+    }
+
     private void setupWindowAnimations() {
         Fade slideTransition = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -143,5 +192,10 @@ public class MainActivity extends AppCompatActivity
             getWindow().setReenterTransition(slideTransition);
             getWindow().setExitTransition(slideTransition);
         }
+    }
+
+    private void setDayNightTheme(int dayNightMode) {
+        AppCompatDelegate.setDefaultNightMode(dayNightMode);
+        recreate();
     }
 }
